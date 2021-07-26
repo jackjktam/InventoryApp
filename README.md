@@ -14,3 +14,12 @@ Retail/wholesale stores and warehouse managers
 
 Recently taking a logistics and operations course has created an interest in inventory management.
 
+
+## User Stories
+
+As a user,
+- I want to be able to add a new product to the inventory management system
+- I want to be able to identify products which will need re-ordering soon
+- I want to be able to decrease the inventory count of a product
+- I want to be able to retrieve the inventory count of a product
+
