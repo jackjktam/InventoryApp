@@ -1,11 +1,16 @@
-# My Personal Project
+# Inventory Management System
 
-## A subtitle
+## What will the application do?
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+This application will:
+- provide long term store inventory information
+- automatically re-order items with low inventory
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+## Who will use it?
+
+Retail/wholesale stores and warehouse managers
+
+## Why is this project of interest to you
+
+Recently taking a logistics and operations course has created an interest in inventory management.
+
