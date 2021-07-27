@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
-Code borrowed from tellerApp
+Code borrowed from tellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
  */
 public class InventoryApp {
     Scanner sc;
