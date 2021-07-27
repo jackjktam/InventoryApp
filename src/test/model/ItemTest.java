@@ -50,7 +50,6 @@ class ItemTest {
         } catch (NegativeAmountException e) {
             fail();
         } catch (InsufficientStockException e) {
-
         }
     }
 
