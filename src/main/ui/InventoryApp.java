@@ -10,6 +10,9 @@ import model.Item;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+Code borrowed from tellerApp
+ */
 public class InventoryApp {
     Scanner sc;
     Inventory inv;
