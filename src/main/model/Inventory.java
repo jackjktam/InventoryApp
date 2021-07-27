@@ -12,11 +12,16 @@ import java.util.List;
 Represents the entire inventory
  */
 public class Inventory {
+
     private List<Item> itemList;
 
     // EFFECTS: create a new inventory
     public Inventory() {
         this.itemList = new ArrayList<>();
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
     }
 
     // EFFECTS: returns the specified item according to id
@@ -84,11 +89,9 @@ public class Inventory {
         if (duplicateId(id)) {
             throw new DuplicateIdException();
         }
-
         if (initStock < 0) {
             throw new NegativeAmountException();
         }
-
         itemList.add(new Item(id, name, initStock));
     }
 
