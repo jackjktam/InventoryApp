@@ -104,10 +104,9 @@ public class InventoryApp {
         System.out.println("Enter item id");
         id = sc.nextInt();
         try {
-            inv.getItemCount(id);
+            System.out.println("item count: " + inv.getItemCount(id));
         } catch (ItemNotFoundException e) {
             System.err.println("Item not found");
-            retrieveItemCount();
         }
     }
 
@@ -124,7 +123,6 @@ public class InventoryApp {
             inv.decreaseStock(id, amount);
         } catch (ItemNotFoundException e) {
             System.err.println("item not found");
-            decreaseItemCount();
         } catch (NegativeAmountException e) {
             System.err.println("Please enter a positive amount");
             decreaseItemCount();
@@ -138,7 +136,7 @@ public class InventoryApp {
         System.out.println("The items that require re-ordering are: ");
         ArrayList<Item> lsi = inv.getLowStockItems();
         for (Item i : lsi) {
-            System.out.printf("\t id: %s \t name: %s \t stock: %d \t rop: %d",
+            System.out.printf("\t id: %s \t name: %s \t stock: %d \t rop: %d\n",
                     i.getId(), i.getName(), i.getStock(), i.getReorderPoint());
         }
     }

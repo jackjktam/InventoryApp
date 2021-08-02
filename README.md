@@ -22,4 +22,5 @@ As a user,
 - I want to be able to identify products which will need re-ordering soon
 - I want to be able to decrease the inventory count of a product
 - I want to be able to retrieve the inventory count of a product
-
+- I want to be able to save the inventory data to a file
+- I want to be able to load the inventory data from a file
