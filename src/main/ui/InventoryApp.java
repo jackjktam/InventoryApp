@@ -59,6 +59,9 @@ public class InventoryApp {
             case "5":
                 confirmSaveBeforeQuit();
                 break;
+            case "6":
+                loadInventory();
+                break;
             default:
                 System.err.println("Enter a valid choice");
         }
@@ -77,8 +80,9 @@ public class InventoryApp {
         System.out.println("\t1 -> Add item");
         System.out.println("\t2 -> Retrieve item count");
         System.out.println("\t3 -> Decrease item count");
-        System.out.println("\t4 -> List products that require re-ordering");
-        System.out.println("\t5 -> quit");
+        System.out.println("\t4 -> List items that require re-ordering");
+        System.out.println("\t5 -> Quit");
+        System.out.println("\t6 -> Load inventory from file");
     }
 
     private void addItem() {
@@ -175,8 +179,8 @@ public class InventoryApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
-    private void loadWorkRoom() {
+    // EFFECTS: loads inventory from file
+    private void loadInventory() {
         try {
             inv = jsonReader.read();
             System.out.println("Loaded inventory from " + JSON_STORE);
