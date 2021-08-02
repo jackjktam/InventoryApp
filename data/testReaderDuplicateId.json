@@ -1,0 +1,16 @@
+{
+  "itemList": [
+    {
+      "id": 1,
+      "name": "a",
+      "stock": 0,
+      "rop": 0
+    },
+    {
+      "id": 1,
+      "name": "b",
+      "stock": 20,
+      "rop": 5
+    }
+  ]
+}

@@ -2,12 +2,14 @@ package model;
 
 import exceptions.InsufficientStockException;
 import exceptions.NegativeAmountException;
+import org.json.JSONObject;
+import persistence.Writable;
 
 
 /*
 Represents a single item within the inventory system
  */
-public class Item {
+public class Item implements Writable {
     private int id;
     private int stock;
     private int reorderPoint;
@@ -73,5 +75,15 @@ public class Item {
     // EFFECTS: returns true if the item needs restocking
     public boolean needsRestock() {
         return (stock <= getReorderPoint());
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("id", id);
+        json.put("name", name);
+        json.put("stock", stock);
+        json.put("rop", reorderPoint);
+        return json;
     }
 }

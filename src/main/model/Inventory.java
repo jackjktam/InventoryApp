@@ -4,6 +4,9 @@ import exceptions.DuplicateIdException;
 import exceptions.InsufficientStockException;
 import exceptions.ItemNotFoundException;
 import exceptions.NegativeAmountException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 /*
 Represents the entire inventory
  */
-public class Inventory {
+public class Inventory implements Writable {
 
     private List<Item> itemList;
 
@@ -74,6 +77,13 @@ public class Inventory {
         return lowStockItems;
     }
 
+    public void addItem(Item item) throws DuplicateIdException {
+        if (duplicateId(item.getId())) {
+            throw new DuplicateIdException();
+        }
+        itemList.add(item);
+    }
+
     // MODIFIES: this
     // EFFECTS: creates new item with given id and name then adds to list
     public void addItem(int id, String name) throws DuplicateIdException {
@@ -119,5 +129,23 @@ public class Inventory {
             }
         }
         return false;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("itemList", itemListToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray itemListToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item i :itemList) {
+            jsonArray.put(i.toJson());
+        }
+
+        return jsonArray;
     }
 }

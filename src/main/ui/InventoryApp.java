@@ -6,7 +6,11 @@ import exceptions.ItemNotFoundException;
 import exceptions.NegativeAmountException;
 import model.Inventory;
 import model.Item;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,6 +18,9 @@ import java.util.Scanner;
 Code borrowed from tellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
  */
 public class InventoryApp {
+    private static final String JSON_STORE = "./data/inventory.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     Scanner sc;
     Inventory inv;
     String command = null;
@@ -31,11 +38,7 @@ public class InventoryApp {
             displayMenu();
             command = sc.next();
             command = command.toLowerCase();
-            if (command == "5") {
-                break;
-            } else {
-                processCommand(command);
-            }
+            processCommand(command);
         }
     }
 
@@ -53,8 +56,11 @@ public class InventoryApp {
             case "4":
                 listReorderProducts();
                 break;
+            case "5":
+                confirmSaveBeforeQuit();
+                break;
             default:
-                System.out.println("Enter a valid choice");
+                System.err.println("Enter a valid choice");
         }
     }
 
@@ -62,6 +68,8 @@ public class InventoryApp {
         inv = new Inventory();
         sc = new Scanner(System.in);
         run = true;
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     private void displayMenu() {
@@ -138,6 +146,44 @@ public class InventoryApp {
         for (Item i : lsi) {
             System.out.printf("\t id: %s \t name: %s \t stock: %d \t rop: %d\n",
                     i.getId(), i.getName(), i.getStock(), i.getReorderPoint());
+        }
+    }
+
+    private void confirmSaveBeforeQuit() {
+        System.out.println("Do you wish to save before quitting? (y/n)");
+        String res = sc.next();
+        if (res.equals("y")) {
+            saveInventory();
+            run = false;
+        } else if (res.equals("n")) {
+            run = false;
+        } else {
+            System.err.println("Enter a valid choice");
+            confirmSaveBeforeQuit();
+        }
+    }
+
+    private void saveInventory() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(inv);
+            jsonWriter.close();
+            System.out.println("Saved inventory to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadWorkRoom() {
+        try {
+            inv = jsonReader.read();
+            System.out.println("Loaded inventory from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (DuplicateIdException e) {
+            System.err.println("Duplicate ID found in file: " + JSON_STORE);
         }
     }
 }
