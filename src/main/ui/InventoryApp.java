@@ -12,6 +12,7 @@ import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -54,12 +55,22 @@ public class InventoryApp {
                 decreaseItemCount();
                 break;
             case "4":
-                listReorderProducts();
+                listAllItems();
                 break;
             case "5":
+                listReorderItems();
+                break;
+            default:
+                processCommand2(command);
+        }
+    }
+
+    private void processCommand2(String command) {
+        switch (command) {
+            case "6":
                 confirmSaveBeforeQuit();
                 break;
-            case "6":
+            case "7":
                 loadInventory();
                 break;
             default:
@@ -80,9 +91,10 @@ public class InventoryApp {
         System.out.println("\t1 -> Add item");
         System.out.println("\t2 -> Retrieve item count");
         System.out.println("\t3 -> Decrease item count");
-        System.out.println("\t4 -> List items that require re-ordering");
-        System.out.println("\t5 -> Quit");
-        System.out.println("\t6 -> Load inventory from file");
+        System.out.println("\t4 -> List all items");
+        System.out.println("\t5 -> List items that require re-ordering");
+        System.out.println("\t6 -> Quit");
+        System.out.println("\t7 -> Load inventory from file");
     }
 
     private void addItem() {
@@ -102,6 +114,7 @@ public class InventoryApp {
 
         try {
             inv.addItem(id, name, initStock, rop);
+            System.out.printf("Added item:\n\tid: %d   name: %s   stock: %d   rop: %d\n", id, name, initStock, rop);
         } catch (DuplicateIdException e) {
             System.err.println("That ID has already been used");
             addItem();
@@ -140,15 +153,24 @@ public class InventoryApp {
             decreaseItemCount();
         } catch (InsufficientStockException e) {
             System.err.println("You cannot decrease the stock by that amount");
-            decreaseItemCount();
         }
     }
 
-    private void listReorderProducts() {
+    private void listAllItems() {
+        List<Item> itemList = inv.getItemList();
+        System.out.println("\tID\t\tNAME\t\tSTOCK\t\tREORDER POINT");
+        for (Item i : itemList) {
+            System.out.printf("\t%d\t\t%s\t\t%d\t\t\t%d\n",
+                    i.getId(), i.getName(), i.getStock(), i.getReorderPoint());
+        }
+    }
+
+    private void listReorderItems() {
         System.out.println("The items that require re-ordering are: ");
         ArrayList<Item> lsi = inv.getLowStockItems();
+        System.out.println("\tID\t\tNAME\t\tSTOCK\t\tREORDER POINT");
         for (Item i : lsi) {
-            System.out.printf("\t id: %s \t name: %s \t stock: %d \t rop: %d\n",
+            System.out.printf("\t%d\t\t%s\t\t%d\t\t\t%d\n",
                     i.getId(), i.getName(), i.getStock(), i.getReorderPoint());
         }
     }
