@@ -18,125 +18,53 @@ import java.util.Scanner;
 /*
 Code borrowed from tellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
  */
-public class InventoryApp {
+public class InventoryInterface {
+
     private static final String JSON_STORE = "./data/inventory.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    Scanner sc;
+
     Inventory inv;
-    String command = null;
-    boolean run;
 
-    public InventoryApp() {
-        runApp();
-    }
-
-    private void runApp() {
-
+    public InventoryInterface() {
         init();
-        System.out.println("Welcome to the inventory management system");
-        while (run) {
-            displayMenu();
-            command = sc.next();
-            command = command.toLowerCase();
-            processCommand(command);
-        }
     }
 
-    private void processCommand(String command) {
-        switch (command) {
-            case "1":
-                addItem();
-                break;
-            case "2":
-                retrieveItemCount();
-                break;
-            case "3":
-                decreaseItemCount();
-                break;
-            case "4":
-                listAllItems();
-                break;
-            case "5":
-                listReorderItems();
-                break;
-            default:
-                processCommand2(command);
-        }
-    }
-
-    private void processCommand2(String command) {
-        switch (command) {
-            case "6":
-                confirmSaveBeforeQuit();
-                break;
-            case "7":
-                loadInventory();
-                break;
-            default:
-                System.err.println("Enter a valid choice");
-        }
+    public Inventory getInventory() {
+        return inv;
     }
 
     private void init() {
         inv = new Inventory();
-        sc = new Scanner(System.in);
-        run = true;
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
 
-    private void displayMenu() {
-        System.out.println("\nSelect from:");
-        System.out.println("\t1 -> Add item");
-        System.out.println("\t2 -> Retrieve item count");
-        System.out.println("\t3 -> Decrease item count");
-        System.out.println("\t4 -> List all items");
-        System.out.println("\t5 -> List items that require re-ordering");
-        System.out.println("\t6 -> Quit");
-        System.out.println("\t7 -> Load inventory from file");
-    }
 
-    private void addItem() {
-        int id;
-        String name;
-        int initStock;
-        int rop;
-
-        System.out.println("Enter item id: ");
-        id = sc.nextInt();
-        System.out.println("Enter product name: ");
-        name = sc.next();
-        System.out.println("Enter initial stock: ");
-        initStock = sc.nextInt();
-        System.out.println("Enter re-order point: ");
-        rop = sc.nextInt();
-
+    public void addItem(int id, String name, int initStock, int rop)
+            throws DuplicateIdException, NegativeAmountException {
         try {
             inv.addItem(id, name, initStock, rop);
-            System.out.printf("Added item:\n\tid: %d   name: %s   stock: %d   rop: %d\n", id, name, initStock, rop);
         } catch (DuplicateIdException e) {
-            System.err.println("That ID has already been used");
-            addItem();
+            throw new DuplicateIdException();
         } catch (NegativeAmountException e) {
-            System.err.println("The amount you entered must be positive");
-            addItem();
+            throw new NegativeAmountException();
         }
     }
 
     private void retrieveItemCount() {
-        int id;
+/*        int id;
         System.out.println("Enter item id");
         id = sc.nextInt();
         try {
             System.out.println("item count: " + inv.getItemCount(id));
         } catch (ItemNotFoundException e) {
             System.err.println("Item not found");
-        }
+        }*/
     }
 
     private void decreaseItemCount() {
-        int id;
+/*        int id;
         int amount;
 
         System.out.println("Enter item id");
@@ -153,10 +81,10 @@ public class InventoryApp {
             decreaseItemCount();
         } catch (InsufficientStockException e) {
             System.err.println("You cannot decrease the stock by that amount");
-        }
+        }*/
     }
 
-    private void listAllItems() {
+    public void listAllItems() {
         List<Item> itemList = inv.getItemList();
         System.out.println("\tID\t\tNAME\t\tSTOCK\t\tREORDER POINT");
         for (Item i : itemList) {
@@ -166,17 +94,17 @@ public class InventoryApp {
     }
 
     private void listReorderItems() {
-        System.out.println("The items that require re-ordering are: ");
+/*        System.out.println("The items that require re-ordering are: ");
         ArrayList<Item> lsi = inv.getLowStockItems();
         System.out.println("\tID\t\tNAME\t\tSTOCK\t\tREORDER POINT");
         for (Item i : lsi) {
             System.out.printf("\t%d\t\t%s\t\t%d\t\t\t%d\n",
                     i.getId(), i.getName(), i.getStock(), i.getReorderPoint());
-        }
+        }*/
     }
 
     private void confirmSaveBeforeQuit() {
-        System.out.println("Do you wish to save before quitting? (y/n)");
+ /*       System.out.println("Do you wish to save before quitting? (y/n)");
         String res = sc.next();
         if (res.equals("y")) {
             saveInventory();
@@ -186,30 +114,43 @@ public class InventoryApp {
         } else {
             System.err.println("Enter a valid choice");
             confirmSaveBeforeQuit();
+        }*/
+    }
+
+    public Item findItem(int id) throws ItemNotFoundException {
+        try {
+            return inv.findItem(id);
+        } catch (ItemNotFoundException e) {
+            throw new ItemNotFoundException();
         }
     }
 
-    private void saveInventory() {
+    public void save() throws FileNotFoundException {
         try {
             jsonWriter.open();
             jsonWriter.write(inv);
             jsonWriter.close();
             System.out.println("Saved inventory to " + JSON_STORE);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            throw new FileNotFoundException();
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: loads inventory from file
-    private void loadInventory() {
+    public void load() {
         try {
             inv = jsonReader.read();
-            System.out.println("Loaded inventory from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         } catch (DuplicateIdException e) {
             System.err.println("Duplicate ID found in file: " + JSON_STORE);
+        }
+    }
+
+    public void editItemStock(Item item, int amount) throws NegativeAmountException, InsufficientStockException {
+        if (amount >= 0) {
+            item.increaseStock(amount);
+        } else {
+            item.decreaseStock(amount);
         }
     }
 }

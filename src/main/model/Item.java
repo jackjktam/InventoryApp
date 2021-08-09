@@ -60,16 +60,12 @@ public class Item implements Writable {
 
     // MODIFIES: this
     // EFFECTS: decreases stock by specified amount
-    public void decreaseStock(int amount) throws NegativeAmountException, InsufficientStockException {
-        if (amount < 0) {
-            throw new NegativeAmountException();
-        }
-
-        if (stock - amount <= 0) {
+    public void decreaseStock(int amount) throws InsufficientStockException {
+        if (stock + amount < 0) {
             throw new InsufficientStockException();
         }
 
-        stock -= amount;
+        stock += amount;
     }
 
     // EFFECTS: returns true if the item needs restocking
@@ -85,5 +81,9 @@ public class Item implements Writable {
         json.put("stock", stock);
         json.put("rop", reorderPoint);
         return json;
+    }
+
+    public void increaseStock(int amount) {
+        stock += amount;
     }
 }

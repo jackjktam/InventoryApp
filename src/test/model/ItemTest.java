@@ -21,8 +21,6 @@ class ItemTest {
         try {
             item.decreaseStock(1);
             assertEquals(4, item.getStock());
-        } catch (NegativeAmountException e) {
-            fail();
         } catch (InsufficientStockException e) {
             fail();
         }
@@ -34,8 +32,6 @@ class ItemTest {
         try {
             item.decreaseStock(-5);
             fail();
-        } catch (NegativeAmountException e) {
-
         } catch (InsufficientStockException e) {
             fail();
         }
@@ -46,8 +42,6 @@ class ItemTest {
         Item item = new Item(0, "", 5);
         try {
             item.decreaseStock(6);
-            fail();
-        } catch (NegativeAmountException e) {
             fail();
         } catch (InsufficientStockException e) {
         }

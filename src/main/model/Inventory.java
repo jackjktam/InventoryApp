@@ -6,10 +6,14 @@ import exceptions.ItemNotFoundException;
 import exceptions.NegativeAmountException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /*
 Represents the entire inventory
@@ -59,8 +63,6 @@ public class Inventory implements Writable {
             item.decreaseStock(amount);
         } catch (ItemNotFoundException e) {
             throw new ItemNotFoundException();
-        } catch (NegativeAmountException e) {
-            throw new NegativeAmountException();
         } catch (InsufficientStockException e) {
             throw new InsufficientStockException();
         }
