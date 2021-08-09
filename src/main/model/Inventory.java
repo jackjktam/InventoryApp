@@ -109,7 +109,8 @@ public class Inventory implements Writable {
 
     // MODIFIES: this
     // EFFECTS: creates new item with given id, name, init stock, and re order point then adds to list
-    public void addItem(int id, String name, int initStock, int rop)
+    //          returns created item
+    public Item addItem(int id, String name, int initStock, int rop)
             throws DuplicateIdException, NegativeAmountException {
 
         if (duplicateId(id)) {
@@ -119,8 +120,9 @@ public class Inventory implements Writable {
         if (initStock < 0 || rop < 0) {
             throw new NegativeAmountException();
         }
-
-        itemList.add(new Item(id, name, initStock, rop));
+        Item item = new Item(id, name, initStock, rop);
+        itemList.add(item);
+        return item;
     }
 
     // EFFECTS: returns true if the id already exists in the item list

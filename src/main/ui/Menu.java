@@ -1,7 +1,5 @@
 package ui;
 
-import model.Inventory;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +18,7 @@ public class Menu extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates menubar with one menu containing menu items
+    // EFFECTS: creates menu bar with one menu containing menu items
     public void createMenu() {
 
         menuBar = new JMenuBar();

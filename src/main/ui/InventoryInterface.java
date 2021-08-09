@@ -12,8 +12,6 @@ import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /*
 Code borrowed from tellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
@@ -36,6 +34,8 @@ public class InventoryInterface {
         return inv;
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes fields
     private void init() {
         inv = new Inventory();
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -43,15 +43,25 @@ public class InventoryInterface {
     }
 
     // MODIFIES: this inv
-    // EFFECTS: adds new item with given fields to inventory
-    public void addItem(int id, String name, int initStock, int rop)
+    // EFFECTS: adds new item with given fields to inventory, returns added item
+    public Item addItem(int id, String name, int initStock, int rop)
             throws DuplicateIdException, NegativeAmountException {
         try {
-            inv.addItem(id, name, initStock, rop);
+            return inv.addItem(id, name, initStock, rop);
         } catch (DuplicateIdException e) {
             throw new DuplicateIdException();
         } catch (NegativeAmountException e) {
             throw new NegativeAmountException();
+        }
+    }
+
+    // MODIFIES: this inv
+    // EFFECTS: adds new item with given item to inventory
+    public void addItem(Item item) throws DuplicateIdException {
+        try {
+            inv.addItem(item);
+        } catch (DuplicateIdException e) {
+            throw new DuplicateIdException();
         }
     }
 
@@ -62,6 +72,16 @@ public class InventoryInterface {
         } catch (ItemNotFoundException e) {
             throw new ItemNotFoundException();
         }
+    }
+
+    // EFFECTS: returns item list
+    public ArrayList<Item> getItemList() {
+        return (ArrayList<Item>) inv.getItemList();
+    }
+
+    // EFFECTS: returns items with low stock (stock <= ROP)
+    public ArrayList<Item> getLowStockItemList() {
+        return inv.getLowStockItems();
     }
 
     // MODIFIES: JSON_STORE

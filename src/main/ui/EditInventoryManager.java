@@ -1,26 +1,50 @@
 package ui;
 
+import exceptions.ItemNotFoundException;
 import model.Item;
 
 import javax.swing.*;
 
 // Helper class for editing inventory
-public class EditInventoryManager {
+public class EditInventoryManager extends DisplayItem {
 
     private JTextField idField;
     private JTextField amountField;
+    private InventoryInterface inventoryInterface;
 
-    public EditInventoryManager() {
+    // EFFECTS: constructs EditInventoryManager and initializes fields
+    public EditInventoryManager(InventoryInterface inventoryInterface) {
+        this.inventoryInterface = inventoryInterface;
+        init();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes fields
+    private void init() {
         idField = new JTextField("", 4);
         amountField = new JTextField("", 4);
     }
 
-    public JTextField getIdField() {
-        return idField;
-    }
+    // EFFECTS: displays search panel
+    public void displaySearchPanel() {
+        JPanel searchPanel = new JPanel();
+        populateSearchField(searchPanel);
 
-    public JTextField getAmountField() {
-        return amountField;
+        int result = JOptionPane.showConfirmDialog(null, searchPanel, "Enter values", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                Item item = inventoryInterface.findItem(Integer.parseInt(idField.getText()));
+                inventoryInterface.editItemStock(item,
+                        Integer.parseInt(amountField.getText()));
+                display(item);
+            } catch (ItemNotFoundException e) {
+                SoundManager.playError();
+                JOptionPane.showMessageDialog(null,"Item not found");
+            } catch (Exception e) {
+                SoundManager.playError();
+                JOptionPane.showMessageDialog(null, "Please enter valid options");
+            }
+        }
     }
 
     // MODIFIES: panel
@@ -33,29 +57,4 @@ public class EditInventoryManager {
         panel.add(amountField);
     }
 
-    // MODIFIES: panel
-    // EFFECTS: populates the result panel with labels and fields
-    public void populateResultPanel(JPanel panel, Item item) {
-        JTextField idField = new JTextField(Integer.toString(item.getId()), 4);
-        JTextField nameField = new JTextField(item.getName(), 4);
-        JTextField stockField = new JTextField(Integer.toString(item.getStock()), 4);
-        JTextField ropField = new JTextField(Integer.toString(item.getReorderPoint()), 4);
-
-        idField.setEditable(false);
-        nameField.setEditable(false);
-        stockField.setEditable(false);
-        ropField.setEditable(false);
-
-        panel.add(new JLabel("ID: "));
-        panel.add(idField);
-        panel.add(Box.createHorizontalStrut(15));
-        panel.add(new JLabel("NAME: "));
-        panel.add(nameField);
-        panel.add(Box.createHorizontalStrut(15));
-        panel.add(new JLabel("STOCK: "));
-        panel.add(stockField);
-        panel.add(Box.createHorizontalStrut(15));
-        panel.add(new JLabel("ROP: "));
-        panel.add(ropField);
-    }
 }

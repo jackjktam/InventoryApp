@@ -2,40 +2,63 @@ package ui;
 
 import exceptions.DuplicateIdException;
 import exceptions.NegativeAmountException;
+import model.Item;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
 // Helper class for adding items
-public class AddItemManager {
+public class AddItemManager extends DisplayItem {
+
+    private InventoryInterface inventoryInterface;
 
     private JTextField idField;
     private JTextField nameField;
     private JTextField stockField;
     private JTextField ropField;
 
-    public AddItemManager() {
+    public AddItemManager(InventoryInterface inventoryInterface) {
+        this.inventoryInterface = inventoryInterface;
+        init();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes fields
+    private void init() {
         idField = new JTextField("", 4);
         nameField = new JTextField("", 4);
         stockField = new JTextField("", 4);
         ropField = new JTextField("", 4);
     }
 
-    public JTextField getIdField() {
-        return idField;
-    }
+    // MODIFIES: Inventory
+    // EFFECTS: displays the add item dialogue
+    public void displayAddItemPanel() {
 
-    public JTextField getNameField() {
-        return nameField;
-    }
+        JPanel panel = new JPanel();
+        populateAddItemPanel(panel);
 
-    public JTextField getStockField() {
-        return stockField;
-    }
+        int result = JOptionPane.showConfirmDialog(null, panel,
+                "Please enter item values", JOptionPane.OK_CANCEL_OPTION);
 
-    public JTextField getRopField() {
-        return ropField;
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                Item item =
+                        inventoryInterface.addItem(Integer.parseInt(idField.getText()),
+                        nameField.getText(),
+                        Integer.parseInt(stockField.getText()),
+                        Integer.parseInt(ropField.getText()));
+                display(item);
+            } catch (NegativeAmountException e) {
+                SoundManager.playError();
+                JOptionPane.showMessageDialog(null, "Please enter a positive amount");
+            } catch (DuplicateIdException e) {
+                SoundManager.playError();
+                JOptionPane.showMessageDialog(null, "That ID is already in use");
+            } catch (Exception e) {
+                SoundManager.playError();
+                JOptionPane.showMessageDialog(null, "Please enter valid inputs");
+            }
+        }
     }
 
     // MODIFIES: panel

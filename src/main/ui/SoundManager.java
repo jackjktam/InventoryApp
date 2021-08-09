@@ -1,16 +1,16 @@
 package ui;
 
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
 
 
 // Helper class for sound effects
 public class SoundManager {
-    private final String soundFile = "./data/error.wav";
+    private static final String soundFile = "./data/error.wav";
 
-    public void playError() {
+    public static void playError() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
             Clip clip = AudioSystem.getClip();

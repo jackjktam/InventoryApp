@@ -7,11 +7,22 @@ import java.util.ArrayList;
 
 // Helper class for listing all items
 public class ListItemsManager {
+
     private static final String[] columnNames = {"ID", "NAME", "STOCK", "ROP"};
     private ArrayList<Item> itemList;
 
     public ListItemsManager(ArrayList<Item> itemList) {
         this.itemList = itemList;
+    }
+
+    // EFFECTS: displays table with itemList data
+    public void displayTable() {
+        JOptionPane.showMessageDialog(null, createPane());
+    }
+
+    // EFFECTS: creates a pane containing itemList data
+    public JScrollPane createPane() {
+        return new JScrollPane(createTable());
     }
 
     // EFFECTS: returns a table from this itemList
