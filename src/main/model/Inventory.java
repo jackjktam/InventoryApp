@@ -133,6 +133,7 @@ public class Inventory implements Writable {
         return false;
     }
 
+    // EFFECTS: converts Inventory to JSON format
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

@@ -18,6 +18,8 @@ import java.util.Scanner;
 /*
 Code borrowed from tellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
  */
+
+// Provides an interface for the GUI to interact with the Inventory
 public class InventoryInterface {
 
     private static final String JSON_STORE = "./data/inventory.json";
@@ -40,7 +42,8 @@ public class InventoryInterface {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
-
+    // MODIFIES: this inv
+    // EFFECTS: adds new item with given fields to inventory
     public void addItem(int id, String name, int initStock, int rop)
             throws DuplicateIdException, NegativeAmountException {
         try {
@@ -52,71 +55,7 @@ public class InventoryInterface {
         }
     }
 
-    private void retrieveItemCount() {
-/*        int id;
-        System.out.println("Enter item id");
-        id = sc.nextInt();
-        try {
-            System.out.println("item count: " + inv.getItemCount(id));
-        } catch (ItemNotFoundException e) {
-            System.err.println("Item not found");
-        }*/
-    }
-
-    private void decreaseItemCount() {
-/*        int id;
-        int amount;
-
-        System.out.println("Enter item id");
-        id = sc.nextInt();
-        System.out.println("Enter amount");
-        amount = sc.nextInt();
-
-        try {
-            inv.decreaseStock(id, amount);
-        } catch (ItemNotFoundException e) {
-            System.err.println("item not found");
-        } catch (NegativeAmountException e) {
-            System.err.println("Please enter a positive amount");
-            decreaseItemCount();
-        } catch (InsufficientStockException e) {
-            System.err.println("You cannot decrease the stock by that amount");
-        }*/
-    }
-
-    public void listAllItems() {
-        List<Item> itemList = inv.getItemList();
-        System.out.println("\tID\t\tNAME\t\tSTOCK\t\tREORDER POINT");
-        for (Item i : itemList) {
-            System.out.printf("\t%d\t\t%s\t\t%d\t\t\t%d\n",
-                    i.getId(), i.getName(), i.getStock(), i.getReorderPoint());
-        }
-    }
-
-    private void listReorderItems() {
-/*        System.out.println("The items that require re-ordering are: ");
-        ArrayList<Item> lsi = inv.getLowStockItems();
-        System.out.println("\tID\t\tNAME\t\tSTOCK\t\tREORDER POINT");
-        for (Item i : lsi) {
-            System.out.printf("\t%d\t\t%s\t\t%d\t\t\t%d\n",
-                    i.getId(), i.getName(), i.getStock(), i.getReorderPoint());
-        }*/
-    }
-
-    private void confirmSaveBeforeQuit() {
- /*       System.out.println("Do you wish to save before quitting? (y/n)");
-        String res = sc.next();
-        if (res.equals("y")) {
-            saveInventory();
-            run = false;
-        } else if (res.equals("n")) {
-            run = false;
-        } else {
-            System.err.println("Enter a valid choice");
-            confirmSaveBeforeQuit();
-        }*/
-    }
-
+    // EFFECTS: finds and returns item with given id
     public Item findItem(int id) throws ItemNotFoundException {
         try {
             return inv.findItem(id);
@@ -125,6 +64,8 @@ public class InventoryInterface {
         }
     }
 
+    // MODIFIES: JSON_STORE
+    // EFFECTS: saves the current inventory to static file location
     public void save() throws FileNotFoundException {
         try {
             jsonWriter.open();
@@ -136,6 +77,8 @@ public class InventoryInterface {
         }
     }
 
+    // MODIFIES: this inv
+    // EFFECTS: loads the inventory from static file location
     public void load() {
         try {
             inv = jsonReader.read();
@@ -146,6 +89,8 @@ public class InventoryInterface {
         }
     }
 
+    // MODIFIES: this inv
+    // EFFECTS: edits the stock amount of given item
     public void editItemStock(Item item, int amount) throws NegativeAmountException, InsufficientStockException {
         if (amount >= 0) {
             item.increaseStock(amount);

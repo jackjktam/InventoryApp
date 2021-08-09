@@ -10,14 +10,17 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+// Manages any action events
 public class ActionManager {
 
     private InventoryInterface inventoryApp;
 
+    // EFFECTS: creates new action manager with given inventoryapp
     public ActionManager(InventoryInterface inventoryApp) {
         this.inventoryApp = inventoryApp;
     }
 
+    // EFFECTS: handles menu options
     public void handleMenu(JMenuItem menuItem) {
         String text = menuItem.getText();
         if (text.equals("Save inventory")) {
@@ -37,6 +40,7 @@ public class ActionManager {
         }
     }
 
+    // EFFECTS: handles button effects
     public void handleButtons(JButton b) {
         String text = b.getText();
         if (text.equals("Add item")) {
@@ -52,6 +56,8 @@ public class ActionManager {
         }
     }
 
+    // MODIFIES: Inventory
+    // EFFECTS: displays the inventory editing dialogue
     private void editInventoryDialogue() {
         EditInventoryManager editInventoryManager = new EditInventoryManager();
         JPanel searchPanel = new JPanel();
@@ -74,9 +80,8 @@ public class ActionManager {
         }
     }
 
-    /*
-       Code borrowed & modified from https://stackoverflow.com/questions/6555040/multiple-input-in-joptionpane-showinputdialog/6555051
-    */
+    // MODIFIES: inventory
+    // EFFECTS: displays the item adding dialogue
     private void addItemDialogue() {
         AddItemManager addItemManager = new AddItemManager();
 
@@ -102,6 +107,7 @@ public class ActionManager {
         }
     }
 
+    // EFFECTS: displays all items in inventory
     private void listItemsDialogue() {
         ListItemsManager listItemsManager =
                 new ListItemsManager((ArrayList<Item>) inventoryApp.getInventory().getItemList());
@@ -110,6 +116,7 @@ public class ActionManager {
         JOptionPane.showMessageDialog(null, pane);
     }
 
+    // EFFECTS: displays all items that require restocking
     private void listLowItemsDialogue() {
         ListItemsManager listItemsManager =
                 new ListItemsManager(inventoryApp.getInventory().getLowStockItems());
@@ -118,6 +125,7 @@ public class ActionManager {
         JOptionPane.showMessageDialog(null, pane);
     }
 
+    // EFFECTS: displays the dialogue to find an item
     private void findItemDialogue() {
 
         FindItemManager findItemManager = new FindItemManager();

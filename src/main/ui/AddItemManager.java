@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+// Helper class for adding items
 public class AddItemManager {
 
     private JTextField idField;
@@ -37,6 +38,8 @@ public class AddItemManager {
         return ropField;
     }
 
+    // MODIFIES: panel
+    // EFFECTS: adds the fields and labels to the panel
     public void populateAddItemPanel(JPanel panel) {
         panel.add(new JLabel("ID: "));
         panel.add(idField);

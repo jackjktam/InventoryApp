@@ -5,15 +5,20 @@ import model.Item;
 
 import javax.swing.*;
 
+// Helper class for finding items
 public class FindItemManager {
 
     private JTextField searchIdField;
 
+    // MODIFIES: panel
+    // EFFECTS: populates the search panel with fields and labels
     public void populateSearchPanel(JPanel panel) {
         searchIdField = new JTextField("", 4);
         panel.add(searchIdField);
     }
 
+    // MODIFIES: panel
+    // EFFECTS: populates the result panel with fields and labels
     public void populateResultPanel(JPanel panel, Item item) {
         JTextField idField = new JTextField(Integer.toString(item.getId()), 4);
         JTextField nameField = new JTextField(item.getName(), 4);

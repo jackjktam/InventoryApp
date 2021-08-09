@@ -73,6 +73,7 @@ public class Item implements Writable {
         return (stock <= getReorderPoint());
     }
 
+    // EFFECTS: converts Item to JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -83,6 +84,7 @@ public class Item implements Writable {
         return json;
     }
 
+    // EFFECTS: increases stock by amount
     public void increaseStock(int amount) {
         stock += amount;
     }

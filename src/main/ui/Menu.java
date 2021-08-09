@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Helper class to create GUI menu functionality
 public class Menu extends JFrame implements ActionListener {
-    //Where the GUI is created:
 
     JMenuBar menuBar;
     JMenu menu;
@@ -19,15 +19,14 @@ public class Menu extends JFrame implements ActionListener {
         createMenu();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates menubar with one menu containing menu items
     public void createMenu() {
-        //Create the menu bar.
-        menuBar = new JMenuBar();
 
-        //Build the first menu.
+        menuBar = new JMenuBar();
         menu = new JMenu("File");
         menuBar.add(menu);
 
-        //a group of JMenuItems
         menuItem = new JMenuItem("Save inventory");
         menuItem.addActionListener(this);
         menu.add(menuItem);

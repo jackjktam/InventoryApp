@@ -14,6 +14,8 @@ import java.util.stream.Stream;
 /*
 code borrowed and modified from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  */
+
+// Represents a reader that read JSON representation from a file
 public class JsonReader {
     private String source;
 

@@ -67,7 +67,7 @@ public class InventoryTest {
     @Test
     public void testDecreaseStockTypical() {
         try {
-            inv.decreaseStock(1, 1);
+            inv.decreaseStock(1, -1);
             assertEquals(4, inv.findItem(1).getStock());
         } catch (ItemNotFoundException e) {
             fail();
@@ -92,22 +92,9 @@ public class InventoryTest {
     }
 
     @Test
-    public void testDecreaseStockNegativeAmount() {
-        try {
-            inv.decreaseStock(1, -1);
-            fail();
-        } catch (ItemNotFoundException e) {
-            fail();
-        } catch (NegativeAmountException e) {
-        } catch (InsufficientStockException e) {
-            fail();
-        }
-    }
-
-    @Test
     public void testDecreaseStockInsufficientStock() {
         try {
-            inv.decreaseStock(1, 100);
+            inv.decreaseStock(1, -100);
             fail();
         } catch (ItemNotFoundException e) {
             fail();

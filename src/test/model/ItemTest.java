@@ -1,7 +1,6 @@
 package model;
 
 import exceptions.InsufficientStockException;
-import exceptions.NegativeAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,19 +18,8 @@ class ItemTest {
     public void testDecreaseStockTypical() {
         Item item = new Item(0, "", 5);
         try {
-            item.decreaseStock(1);
+            item.decreaseStock(-1);
             assertEquals(4, item.getStock());
-        } catch (InsufficientStockException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testDecreaseStockNegativeAmount() {
-        Item item = new Item(0, "", 5);
-        try {
-            item.decreaseStock(-5);
-            fail();
         } catch (InsufficientStockException e) {
             fail();
         }
@@ -41,7 +29,7 @@ class ItemTest {
     public void testDecreaseStockInsufficientStock() {
         Item item = new Item(0, "", 5);
         try {
-            item.decreaseStock(6);
+            item.decreaseStock(-6);
             fail();
         } catch (InsufficientStockException e) {
         }
@@ -61,5 +49,11 @@ class ItemTest {
         assertFalse(item3.needsRestock());
         Item item4 = new Item(0, "", 5, 3);
         assertFalse(item4.needsRestock());
+    }
+
+    @Test
+    public void testIncreaseStock() {
+        item.increaseStock(5);
+        assertEquals(5, item.getStock());
     }
 }

@@ -4,6 +4,7 @@ import model.Item;
 
 import javax.swing.*;
 
+// Helper class for editing inventory
 public class EditInventoryManager {
 
     private JTextField idField;
@@ -14,14 +15,6 @@ public class EditInventoryManager {
         amountField = new JTextField("", 4);
     }
 
-    public void populateSearchField(JPanel panel) {
-        panel.add(new JLabel("ID: "));
-        panel.add(idField);
-        panel.add(Box.createHorizontalStrut(15));
-        panel.add(new JLabel("Amount: "));
-        panel.add(amountField);
-    }
-
     public JTextField getIdField() {
         return idField;
     }
@@ -30,6 +23,18 @@ public class EditInventoryManager {
         return amountField;
     }
 
+    // MODIFIES: panel
+    // EFFECTS: populates the search panel with labels and fields
+    public void populateSearchField(JPanel panel) {
+        panel.add(new JLabel("ID: "));
+        panel.add(idField);
+        panel.add(Box.createHorizontalStrut(15));
+        panel.add(new JLabel("Amount: "));
+        panel.add(amountField);
+    }
+
+    // MODIFIES: panel
+    // EFFECTS: populates the result panel with labels and fields
     public void populateResultPanel(JPanel panel, Item item) {
         JTextField idField = new JTextField(Integer.toString(item.getId()), 4);
         JTextField nameField = new JTextField(item.getName(), 4);
