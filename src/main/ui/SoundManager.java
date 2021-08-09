@@ -10,7 +10,7 @@ import java.io.File;
 public class SoundManager {
     private static final String soundFile = "./data/error.wav";
 
-    public static void playError() {
+    public static void playErrorSound() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
             Clip clip = AudioSystem.getClip();

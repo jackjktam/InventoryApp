@@ -10,7 +10,7 @@ public class EditInventoryManager extends DisplayItem {
 
     private JTextField idField;
     private JTextField amountField;
-    private InventoryInterface inventoryInterface;
+    private final InventoryInterface inventoryInterface;
 
     // EFFECTS: constructs EditInventoryManager and initializes fields
     public EditInventoryManager(InventoryInterface inventoryInterface) {
@@ -38,10 +38,10 @@ public class EditInventoryManager extends DisplayItem {
                         Integer.parseInt(amountField.getText()));
                 display(item);
             } catch (ItemNotFoundException e) {
-                SoundManager.playError();
+                SoundManager.playErrorSound();
                 JOptionPane.showMessageDialog(null,"Item not found");
             } catch (Exception e) {
-                SoundManager.playError();
+                SoundManager.playErrorSound();
                 JOptionPane.showMessageDialog(null, "Please enter valid options");
             }
         }

@@ -9,7 +9,7 @@ import javax.swing.*;
 // Helper class for adding items
 public class AddItemManager extends DisplayItem {
 
-    private InventoryInterface inventoryInterface;
+    private final InventoryInterface inventoryInterface;
 
     private JTextField idField;
     private JTextField nameField;
@@ -49,13 +49,13 @@ public class AddItemManager extends DisplayItem {
                         Integer.parseInt(ropField.getText()));
                 display(item);
             } catch (NegativeAmountException e) {
-                SoundManager.playError();
+                SoundManager.playErrorSound();
                 JOptionPane.showMessageDialog(null, "Please enter a positive amount");
             } catch (DuplicateIdException e) {
-                SoundManager.playError();
+                SoundManager.playErrorSound();
                 JOptionPane.showMessageDialog(null, "That ID is already in use");
             } catch (Exception e) {
-                SoundManager.playError();
+                SoundManager.playErrorSound();
                 JOptionPane.showMessageDialog(null, "Please enter valid inputs");
             }
         }

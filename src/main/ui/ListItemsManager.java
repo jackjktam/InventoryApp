@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ListItemsManager {
 
     private static final String[] columnNames = {"ID", "NAME", "STOCK", "ROP"};
-    private ArrayList<Item> itemList;
+    private final ArrayList<Item> itemList;
 
     public ListItemsManager(ArrayList<Item> itemList) {
         this.itemList = itemList;

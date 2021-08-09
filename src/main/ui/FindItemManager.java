@@ -8,7 +8,7 @@ import javax.swing.*;
 // Helper class for finding items
 public class FindItemManager extends DisplayItem {
 
-    private InventoryInterface inventoryInterface;
+    private final InventoryInterface inventoryInterface;
     private JTextField searchIdField;
 
     public FindItemManager(InventoryInterface inventoryInterface) {
@@ -24,10 +24,10 @@ public class FindItemManager extends DisplayItem {
                 Item item = inventoryInterface.findItem(Integer.parseInt(searchIdField.getText()));
                 display(item);
             } catch (ItemNotFoundException e) {
-                SoundManager.playError();
+                SoundManager.playErrorSound();
                 JOptionPane.showMessageDialog(null, "Item not found");
             } catch (Exception e) {
-                SoundManager.playError();
+                SoundManager.playErrorSound();
                 JOptionPane.showMessageDialog(null, "Enter valid inputs");
             }
         }

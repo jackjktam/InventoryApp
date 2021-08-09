@@ -1,14 +1,13 @@
 package ui;
 
 import javax.swing.*;
-import java.io.FileNotFoundException;
 
 // Manages any action events
 public class ActionManager {
 
-    private InventoryInterface inventoryInterface;
+    private final InventoryInterface inventoryInterface;
 
-    // EFFECTS: creates new action manager with given inventoryapp
+    // EFFECTS: creates new action manager with given inventory interface
     public ActionManager(InventoryInterface inventoryInterface) {
         this.inventoryInterface = inventoryInterface;
     }
@@ -27,16 +26,22 @@ public class ActionManager {
     // EFFECTS: handles button effects
     public void handleButtons(JButton b) {
         String text = b.getText();
-        if (text.equals("Add item")) {
-            addItemDialogue();
-        } else if (text.equals("List all items")) {
-            listItemsDialogue();
-        } else if (text.equals("List low stock items")) {
-            listLowItemsDialogue();
-        } else if (text.equals("Find item")) {
-            findItemDialogue();
-        } else if (text.equals("Edit inventory")) {
-            editInventoryDialogue();
+        switch (text) {
+            case "Add item":
+                addItemDialogue();
+                break;
+            case "List all items":
+                listItemsDialogue();
+                break;
+            case "List low stock items":
+                listLowItemsDialogue();
+                break;
+            case "Find item":
+                findItemDialogue();
+                break;
+            case "Edit inventory":
+                editInventoryDialogue();
+                break;
         }
     }
 

@@ -9,12 +9,8 @@ import java.awt.event.ActionListener;
 public class InventoryEditor extends JFrame implements ActionListener {
 
     public static final int WIDTH = 500;
-    public static final int HEIGHT = WIDTH;
 
-    private InventoryInterface inventoryApp;
     private ActionManager actionManager;
-
-    JMenuBar menuBar;
 
     public InventoryEditor() {
         initializeFields();
@@ -24,15 +20,14 @@ public class InventoryEditor extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: initializes fields
     private void initializeFields() {
-        inventoryApp = new InventoryInterface();
-        actionManager = new ActionManager(inventoryApp);
-        menuBar = new Menu(actionManager).menuBar;
+        InventoryInterface inventoryInterface = new InventoryInterface();
+        actionManager = new ActionManager(inventoryInterface);
     }
 
     // MODIFIES: this
     // Sets up all graphical options
     private void initializeGraphics() {
-        setJMenuBar(menuBar);
+        setJMenuBar(new Menu(actionManager).menuBar);
         setLayout(new GridLayout(5,1));
         addButtonsToPane(this);
         setMinimumSize(new Dimension(WIDTH, 0));

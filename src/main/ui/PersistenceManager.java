@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 
 public class PersistenceManager {
 
-    private InventoryInterface inventoryInterface;
+    private final InventoryInterface inventoryInterface;
 
     public PersistenceManager(InventoryInterface inventoryInterface) {
         this.inventoryInterface = inventoryInterface;
@@ -17,7 +17,7 @@ public class PersistenceManager {
             inventoryInterface.save();
             JOptionPane.showMessageDialog(null, "Saved inventory");
         } catch (FileNotFoundException e) {
-            SoundManager.playError();
+            SoundManager.playErrorSound();
             JOptionPane.showMessageDialog(null, "Could not save file");
         }
     }
@@ -29,7 +29,7 @@ public class PersistenceManager {
             inventoryInterface.load();
             JOptionPane.showMessageDialog(null, "Loaded file");
         } catch (Exception e) {
-            SoundManager.playError();
+            SoundManager.playErrorSound();
             JOptionPane.showMessageDialog(null, "Could not load file");
         }
     }

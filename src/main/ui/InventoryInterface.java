@@ -55,16 +55,6 @@ public class InventoryInterface {
         }
     }
 
-    // MODIFIES: this inv
-    // EFFECTS: adds new item with given item to inventory
-    public void addItem(Item item) throws DuplicateIdException {
-        try {
-            inv.addItem(item);
-        } catch (DuplicateIdException e) {
-            throw new DuplicateIdException();
-        }
-    }
-
     // EFFECTS: finds and returns item with given id
     public Item findItem(int id) throws ItemNotFoundException {
         try {
@@ -111,7 +101,7 @@ public class InventoryInterface {
 
     // MODIFIES: this inv
     // EFFECTS: edits the stock amount of given item
-    public void editItemStock(Item item, int amount) throws NegativeAmountException, InsufficientStockException {
+    public void editItemStock(Item item, int amount) throws InsufficientStockException {
         if (amount >= 0) {
             item.increaseStock(amount);
         } else {
