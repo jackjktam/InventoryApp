@@ -8,7 +8,7 @@ import java.io.File;
 
 // Helper class for sound effects
 public class SoundManager {
-    private static final String soundFile = "./data/error.wav";
+    private static final String soundFile = "./resources/error.wav";
 
     public static void playErrorSound() {
         try {

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageManager {
-    private static final String source = "./data/splash.png";
+    private static final String source = "./resources/splash.png";
 
     // EFFECTS: returns a BufferedImage from source
     public BufferedImage getImage() {
