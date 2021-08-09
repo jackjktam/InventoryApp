@@ -5,16 +5,14 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
 import java.io.File;
 
-/*
-Code borrowed and modifies from: http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
- */
 
 // Helper class for sound effects
 public class SoundManager {
+    private final String soundFile = "./data/error.wav";
 
-    public void playSound(String soundName) {
+    public void playError() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();

@@ -33,7 +33,7 @@ public class InventoryEditor extends JFrame implements ActionListener {
     // Sets up all graphical options
     private void initializeGraphics() {
         setJMenuBar(menuBar);
-        setLayout(new BoxLayout(getContentPane(),1));
+        setLayout(new GridLayout(5,1));
         addButtonsToPane(this);
         setMinimumSize(new Dimension(WIDTH, 0));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

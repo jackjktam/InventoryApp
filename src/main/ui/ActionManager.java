@@ -6,7 +6,6 @@ import exceptions.NegativeAmountException;
 import model.Item;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class ActionManager {
                 inventoryApp.save();
                 JOptionPane.showMessageDialog(null, "Saved inventory");
             } catch (FileNotFoundException e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "Could not save file");
             }
         } else if (text.equals("Load inventory from file")) {
@@ -38,7 +37,7 @@ public class ActionManager {
                 inventoryApp.load();
                 JOptionPane.showMessageDialog(null, "Loaded file");
             } catch (Exception e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "Could not load file");
             }
         }
@@ -76,10 +75,10 @@ public class ActionManager {
                 editInventoryManager.populateResultPanel(resultPanel, item);
                 JOptionPane.showMessageDialog(null, resultPanel);
             } catch (ItemNotFoundException e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null,"Item not found");
             } catch (Exception e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "Please enter valid options");
             }
 
@@ -104,13 +103,13 @@ public class ActionManager {
                         Integer.parseInt(addItemManager.getRopField().getText()));
 
             } catch (NegativeAmountException e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "Please enter a positive amount");
             } catch (DuplicateIdException e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "That ID is already in use");
             } catch (Exception e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "Please enter valid inputs");
             }
         }
@@ -157,10 +156,10 @@ public class ActionManager {
                 JOptionPane.showMessageDialog(null, resultPanel);
                 
             } catch (ItemNotFoundException e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "Item not found");
             } catch (Exception e) {
-                sm.playSound("./data/error.wav");
+                sm.playError();
                 JOptionPane.showMessageDialog(null, "Enter valid inputs");
             }
         }
