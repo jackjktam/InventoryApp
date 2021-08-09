@@ -8,13 +8,15 @@ import java.awt.event.ActionListener;
 // Represents the main GUI
 public class InventoryEditor extends JFrame implements ActionListener {
 
-    public static final int WIDTH = 500;
+    public static final int WIDTH = 750;
+    public static final int HEIGHT = 750;
 
     private ActionManager actionManager;
 
     public InventoryEditor() {
         initializeFields();
         initializeGraphics();
+        loadingScreen();
     }
 
     // MODIFIES: this
@@ -25,14 +27,43 @@ public class InventoryEditor extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // Sets up all graphical options
+    // EFFECTS: initializes the main graphic components of the GUI
     private void initializeGraphics() {
-        setJMenuBar(new Menu(actionManager).menuBar);
-        setLayout(new GridLayout(5,1));
-        addButtonsToPane(this);
-        setMinimumSize(new Dimension(WIDTH, 0));
+        setLayout(new GridLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        pack();
         setLocationRelativeTo(null);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: displays the splash loading screen
+    private void loadingScreen() {
+
+        ImageManager imageManager = new ImageManager();
+        JLabel picLabel = new JLabel(new ImageIcon(imageManager.getImage()));
+        add(picLabel);
+        setVisible(true);
+
+        Timer timer = new Timer(0, e -> {
+            remove(picLabel);
+            mainMenu();
+            repaint();
+        });
+        timer.setRepeats(false);
+        timer.setInitialDelay(2000);
+        timer.start();
+    }
+
+    // MODIFIES: this
+    // Sets up all graphical options
+    private void mainMenu() {
+
+        setJMenuBar(new Menu(actionManager).menuBar);
+        setLayout(new GridLayout(5, 1));
+
+        addButtonsToPane(this);
+
         pack();
         setVisible(true);
     }

@@ -81,7 +81,6 @@ public class InventoryInterface {
             jsonWriter.open();
             jsonWriter.write(inv);
             jsonWriter.close();
-            System.out.println("Saved inventory to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException();
         }
