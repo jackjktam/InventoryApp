@@ -1,4 +1,7 @@
-package ui;
+package ui.actions;
+
+import ui.InventoryInterface;
+import ui.SoundManager;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;

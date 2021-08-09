@@ -1,7 +1,9 @@
-package ui;
+package ui.actions;
 
 import exceptions.ItemNotFoundException;
 import model.Item;
+import ui.InventoryInterface;
+import ui.SoundManager;
 
 import javax.swing.*;
 

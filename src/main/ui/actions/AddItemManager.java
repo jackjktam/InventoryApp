@@ -1,8 +1,10 @@
-package ui;
+package ui.actions;
 
 import exceptions.DuplicateIdException;
 import exceptions.NegativeAmountException;
 import model.Item;
+import ui.InventoryInterface;
+import ui.SoundManager;
 
 import javax.swing.*;
 

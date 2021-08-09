@@ -1,4 +1,4 @@
-package ui;
+package ui.actions;
 
 import model.Item;
 
