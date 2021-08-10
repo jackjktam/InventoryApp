@@ -29,6 +29,11 @@ public class InventoryEditor extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: initializes the main graphic components of the GUI
     private void initializeGraphics() {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setLayout(new GridLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
