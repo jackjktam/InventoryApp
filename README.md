@@ -24,3 +24,7 @@ As a user,
 - I want to be able to retrieve the inventory count of a product
 - I want to be able to save the inventory data to a file
 - I want to be able to load the inventory data from a file
+
+
+## Phase 4: Task 2
+Robust design in Inventory class, findItem, getItemCount, addItem methods
