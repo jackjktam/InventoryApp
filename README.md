@@ -28,3 +28,9 @@ As a user,
 
 ## Phase 4: Task 2
 Robust design in Inventory class, findItem, getItemCount, addItem methods
+
+## Phase 4: Task 4
+- Create a superclass that the action managers would inherit to decrease coupling in between the managers
+  and the InventoryInterface since they share similar functionalities that could be overridden
+- Change the implementation of the items in the inventory from list to hashmap/set as they are all unique items, 
+  speeding up access operations for larger inventories.
